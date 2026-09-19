@@ -1,4 +1,7 @@
 # jq2
+
+"Usage: jq2 <json-file>"
+
 jq> :help
 
 Commands
@@ -20,8 +23,7 @@ Commands
 :exit
     End the session.
 
-
-MegaVul examples
+JQ examples
 ================
 
 First record:
@@ -68,7 +70,7 @@ Group records by CVE:
 Root-array protection
 =====================
 
-MegaVul's root is an array.
+If root is an array.
 
 This will be rejected:
 
@@ -88,21 +90,6 @@ for one record.
 Pager
 =====
 
-Query results are streamed into `less`.
+Query results are streamed into `scroller`
 
-Useful controls:
-
-    Up / Down      Scroll
-    Space          Next page
-    b              Previous page
-    g              Beginning
-    G              End
-    /text          Search
-    n              Next match
-    N              Previous match
-    q              Quit pager
-
-Pressing q also stops consuming additional query results.
-
-The original JSON file is parsed once at startup.
-Each entered query is independently parsed/compiled.
+[page 1/1 | Enter: close | Backspace: previous | q: quit]
