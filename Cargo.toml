@@ -1,0 +1,11 @@
+[package]
+name = "jq2"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+jaq-core = "=3.1.1"
+jaq-std = "=3.0.3"
+jaq-json = "=2.0.3"
+rustyline = "17"
+crossterm = "0.29"
