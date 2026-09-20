@@ -1745,8 +1745,47 @@ fn execute_to_file(
             },
         )?;
 
+    let file_query =
+        match mode {
+            RedirectMode::Truncate => {
+                fs::OpenOptions::new()
+                    .write(true)
+                    .create(true)
+                    .truncate(true)
+                    .open(format!("{}.query",filename))
+            }
+
+            RedirectMode::Append => {
+                fs::OpenOptions::new()
+                    .write(true)
+                    .create(true)
+                    .append(true)
+                    .open(format!("{}.query",filename))
+            }
+        }
+        .map_err(
+            |e| {
+                format!(
+                    "Cannot open output file '{filename}': {e}"
+                )
+            },
+        )?;        
     let mut output =
         BufWriter::new(file);
+    
+    let mut output2 = BufWriter::new(file_query);
+    
+    writeln!(output2,"{query}");
+
+    output2
+        .flush()
+        .map_err(
+            |e| {
+                format!(
+                    "Unable to flush '{filename}': {e}"
+                )
+            },
+        )?;
 
     // --------------------------------------------------------
     // Create execution context
@@ -1770,6 +1809,9 @@ fn execute_to_file(
 
     let mut count =
         0_u64;
+
+
+    
 
     // --------------------------------------------------------
     // Stream results directly to disk
